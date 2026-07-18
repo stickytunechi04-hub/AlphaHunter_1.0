@@ -1,27 +1,34 @@
-def show_dashboard(coins):
+def show_dashboard(results):
 
     print("\n" + "=" * 60)
-    print("🔥 ALPHA HUNTER DASHBOARD")
+    print("🦅 ALPHA HUNTER DASHBOARD")
     print("=" * 60)
 
-    for i, coin in enumerate(coins[:10], start=1):
+    results = sorted(
+        results,
+        key=lambda x: x["decision"]["confidence"],
+        reverse=True
+    )
+
+    for i, result in enumerate(results[:10], start=1):
+
+        coin = result["coin"]
+        decision = result["decision"]
 
         print(
-            f"{i:2}. "
-            f"{coin['name']} "
-            f"({coin['symbol']})"
+            f"{i}. {coin['name']} ({coin['symbol']})"
         )
 
         print(
-            f"    Score: {coin['score']}/100"
+            f"   Confidence : {decision['confidence']}%"
         )
 
         print(
-            f"    Volume: ${coin['volume']:,.0f}"
+            f"   Risk       : {decision['risk']}%"
         )
 
         print(
-            f"    Liquidity: ${coin['liquidity']:,.0f}"
+            f"   Verdict    : {decision['verdict']}"
         )
 
         print()

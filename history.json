@@ -1,8 +1,8 @@
 {
     "pumpCmXqMfrsAkQ5r49WcJnRayYRqmXz6ae8H7H9Dfn": {
         "score": 60,
-        "volume": 1352852.17,
-        "liquidity": 13455197.24
+        "volume": 1095587.0,
+        "liquidity": 13489706.1
     },
     "A8GrJxTqxk5Tz8TbHjstMyWs2iHVfNRggvbDE4Xeu51K": {
         "score": 50,
@@ -11,32 +11,27 @@
     },
     "PE85tFDe19MhGLE7FrJEEEiFWPFsD2Zr16dGkhWgmQh": {
         "score": 50,
-        "volume": 153238.33,
-        "liquidity": 3148314.28
-    },
-    "A1DBHWmtuYZMpLNXE9xr4B7crD8FAxwHSDnqnk8NwAKS": {
-        "score": 50,
-        "volume": 175879.2,
-        "liquidity": 3900608.79
+        "volume": 153634.31,
+        "liquidity": 3148316.54
     },
     "3Dqb9PytTmkjvf9AGus1m2brGoc2VcVxBULTcHRaMPPn": {
         "score": 50,
-        "volume": 153238.33,
-        "liquidity": 2281848.0
+        "volume": 153634.31,
+        "liquidity": 2281850.27
     },
-    "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263": {
-        "score": 45,
-        "volume": 815501.25,
-        "liquidity": 107300.85
+    "A1DBHWmtuYZMpLNXE9xr4B7crD8FAxwHSDnqnk8NwAKS": {
+        "score": 50,
+        "volume": 153634.31,
+        "liquidity": 3900608.79
     },
     "BonkUg9t46HnxF4erZzmnB4Ae6oEcDS4V66zqUoUhwWY": {
         "score": 45,
-        "volume": 153238.47,
-        "liquidity": 1705503.27
+        "volume": 153634.55,
+        "liquidity": 1705505.54
     },
     "PEProWjM816kLQgJjnYGGudBeA2GgcEogjYJqXjqYFx": {
         "score": 45,
-        "volume": 153238.4,
-        "liquidity": 1319276.94
+        "volume": 153634.38,
+        "liquidity": 1319279.2
     }
 }

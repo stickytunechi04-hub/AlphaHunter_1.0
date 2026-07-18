@@ -4,7 +4,7 @@ from config import SEARCH_TERMS, MIN_VOLUME, MIN_LIQUIDITY
 from telegram_bot import send_message
 from filters import score_coin, rating
 from history import should_alert
-
+from modules.pipeline import process_coin
 def scan():
     all_pairs=[]
     for term in SEARCH_TERMS:
