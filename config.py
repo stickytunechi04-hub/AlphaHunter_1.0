@@ -1,5 +1,17 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # ======================================
-# Alpha Hunter Configuration
+# Telegram
+# ======================================
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
+
+# ======================================
+# Scanner
 # ======================================
 
 SCAN_INTERVAL = 30
@@ -18,10 +30,10 @@ SEARCH_TERMS = [
     "ai"
 ]
 
-# Future settings
+# ======================================
+# Alpha Hunter
+# ======================================
 
 MAX_RESULTS = 25
-
 MIN_CONFIDENCE = 70
-
 CHAIN = "solana"
