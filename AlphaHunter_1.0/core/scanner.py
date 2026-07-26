@@ -5,8 +5,10 @@ AlphaHunter Scanner
 """
 
 from api.api_manager import fetch_pairs
+
 from core.analysis import normalize_pair
 from core.filters import QualityFilter
+from core.scoring import HunterScore
 
 
 class Scanner:
@@ -23,6 +25,8 @@ class Scanner:
 
         filter_engine = QualityFilter()
 
+        scorer = HunterScore()
+
         coins = []
 
         for pair in pairs:
@@ -31,13 +35,28 @@ class Scanner:
 
             passed, reasons = filter_engine.check(coin)
 
-            if passed:
-                coins.append(coin)
+            if not passed:
+                continue
 
-        print(f"Qualified {len(coins)} coins")
+            coin["hunter_score"] = scorer.calculate(coin)
 
-        if coins:
+            coins.append(coin)
 
-            print("\nFIRST QUALIFIED COIN\n")
+        coins.sort(
+            key=lambda x: x["hunter_score"],
+            reverse=True
+        )
 
-            print(coins[0])
+        print(f"Qualified {len(coins)} coins\n")
+
+        print("=" * 55)
+        print("TOP OPPORTUNITIES")
+        print("=" * 55)
+
+        for coin in coins[:10]:
+
+            print(
+                f"{coin['symbol']:<10}"
+                f" Score:{coin['hunter_score']:>3}"
+                f"  Price:${coin['price']}"
+            )
