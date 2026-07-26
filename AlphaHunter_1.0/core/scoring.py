@@ -15,29 +15,16 @@ class HunterScore:
 
     def calculate(self, coin):
 
-        liquidity_score = LiquidityEngine.score(
-            coin["liquidity"]
-        )
-
-        volume_score = VolumeEngine.score(
-            coin["volume"]
-        )
-
-        fdv_score = FDVEngine.score(
-            coin["fdv"]
-        )
-
-        age_score = AgeEngine.score(
-            coin["pair_created"]
-        )
+        liquidity_score = LiquidityEngine.score(coin)
+        volume_score = VolumeEngine.score(coin)
+        fdv_score = FDVEngine.score(coin)
+        age_score = AgeEngine.score(coin)
 
         total = (
-
-            liquidity_score +
-            volume_score +
-            fdv_score +
-            age_score
-
+            liquidity_score
+            + volume_score
+            + fdv_score
+            + age_score
         )
 
         coin["liquidity_score"] = liquidity_score

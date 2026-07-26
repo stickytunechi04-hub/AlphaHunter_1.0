@@ -9,7 +9,9 @@ VOLUME ENGINE
 class VolumeEngine:
 
     @staticmethod
-    def score(volume):
+    def score(coin):
+
+        volume = coin["volume"]
 
         if volume >= 5000000:
             return 25
@@ -29,5 +31,4 @@ class VolumeEngine:
         elif volume >= 50000:
             return 6
 
-        else:
-            return 0
+        return 0

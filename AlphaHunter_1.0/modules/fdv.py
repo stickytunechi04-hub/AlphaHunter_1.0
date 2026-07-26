@@ -9,9 +9,10 @@ FDV ENGINE
 class FDVEngine:
 
     @staticmethod
-    def score(fdv):
+    def score(coin):
 
-        # Sweet spot for meme coins
+        fdv = coin["fdv"]
+
         if 50000 <= fdv <= 250000:
             return 25
 
@@ -27,5 +28,4 @@ class FDVEngine:
         elif 1000000 < fdv <= 5000000:
             return 5
 
-        else:
-            return 0
+        return 0

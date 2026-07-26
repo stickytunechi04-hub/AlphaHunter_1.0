@@ -9,7 +9,9 @@ LIQUIDITY ENGINE
 class LiquidityEngine:
 
     @staticmethod
-    def score(liquidity):
+    def score(coin):
+
+        liquidity = coin["liquidity"]
 
         if liquidity >= 500000:
             return 25
@@ -29,5 +31,4 @@ class LiquidityEngine:
         elif liquidity >= 10000:
             return 6
 
-        else:
-            return 0
+        return 0
