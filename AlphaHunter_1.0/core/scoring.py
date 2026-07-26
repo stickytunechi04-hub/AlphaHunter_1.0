@@ -1,63 +1,48 @@
 """
-=========================================
-AlphaHunter Hunter Score Engine
-=========================================
+==========================================
+ALPHA HUNTER
+HUNTER SCORE ENGINE
+==========================================
 """
+
+from modules.liquidity import LiquidityEngine
+from modules.volume import VolumeEngine
+from modules.fdv import FDVEngine
+from modules.age import AgeEngine
 
 
 class HunterScore:
 
     def calculate(self, coin):
 
-        score = 0
+        liquidity_score = LiquidityEngine.score(
+            coin["liquidity"]
+        )
 
-        # ------------------------
-        # Liquidity
-        # ------------------------
+        volume_score = VolumeEngine.score(
+            coin["volume"]
+        )
 
-        if coin["liquidity"] >= 100000:
-            score += 25
+        fdv_score = FDVEngine.score(
+            coin["fdv"]
+        )
 
-        elif coin["liquidity"] >= 50000:
-            score += 20
+        age_score = AgeEngine.score(
+            coin["pair_created"]
+        )
 
-        elif coin["liquidity"] >= 25000:
-            score += 15
+        total = (
 
-        elif coin["liquidity"] >= 10000:
-            score += 10
+            liquidity_score +
+            volume_score +
+            fdv_score +
+            age_score
 
-        # ------------------------
-        # Volume
-        # ------------------------
+        )
 
-        if coin["volume"] >= 1000000:
-            score += 25
+        coin["liquidity_score"] = liquidity_score
+        coin["volume_score"] = volume_score
+        coin["fdv_score"] = fdv_score
+        coin["age_score"] = age_score
 
-        elif coin["volume"] >= 500000:
-            score += 20
-
-        elif coin["volume"] >= 100000:
-            score += 15
-
-        elif coin["volume"] >= 25000:
-            score += 10
-
-        # ------------------------
-        # FDV
-        # ------------------------
-
-        if 50000 <= coin["fdv"] <= 500000:
-            score += 25
-
-        elif coin["fdv"] <= 1000000:
-            score += 15
-
-        else:
-            score += 5
-
-        # ------------------------
-        # Final
-        # ------------------------
-
-        return min(score, 100)
+        return min(total, 100)
