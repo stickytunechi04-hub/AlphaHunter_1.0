@@ -13,6 +13,7 @@ from core.engine import DecisionEngine
 from core.ranking import RankingEngine
 
 from modules.momentum import MomentumEngine
+from modules.risk import RiskEngine
 
 
 class Scanner:
@@ -30,6 +31,8 @@ class Scanner:
         filter_engine = QualityFilter()
         hunter = HunterScore()
         momentum = MomentumEngine()
+        risk = RiskEngine()
+
         decision = DecisionEngine()
         ranking = RankingEngine()
 
@@ -48,8 +51,9 @@ class Scanner:
 
             coin["momentum_score"] = momentum.score(coin)
 
+            coin["risk_score"] = risk.score(coin)
+
             # Future Intelligence Engines
-            coin["risk_score"] = 0
             coin["narrative_score"] = 0
             coin["wallet_score"] = 0
             coin["smart_money_score"] = 0
@@ -75,9 +79,9 @@ class Scanner:
 
         print(f"Qualified {len(coins)} coins\n")
 
-        print("=" * 70)
+        print("=" * 86)
         print("TOP OPPORTUNITIES")
-        print("=" * 70)
+        print("=" * 86)
 
         for coin in coins[:10]:
 
@@ -85,6 +89,7 @@ class Scanner:
                 f"{coin['symbol']:<12}"
                 f" Hunter:{coin['hunter_score']:>3}"
                 f" Momentum:{coin['momentum_score']:>3}"
+                f" Risk:{coin['risk_score']:>3}"
                 f" Final:{coin['final_score']:>3}"
                 f" Price:${coin['price']}"
             )
