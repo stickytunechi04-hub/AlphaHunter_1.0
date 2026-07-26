@@ -4,10 +4,9 @@ AlphaHunter Scanner
 =========================================
 """
 
-import json
-
 from api.api_manager import fetch_pairs
 from core.analysis import normalize_pair
+from core.filters import QualityFilter
 
 
 class Scanner:
@@ -20,18 +19,25 @@ class Scanner:
 
         print(f"Downloaded {len(pairs)} pairs")
 
-        print("\nNormalizing data...\n")
+        print("\nFiltering market...\n")
+
+        filter_engine = QualityFilter()
 
         coins = []
 
         for pair in pairs:
+
             coin = normalize_pair(pair)
-            coins.append(coin)
 
-        print(f"Normalized {len(coins)} coins")
+            passed, reasons = filter_engine.check(coin)
 
-        if pairs:
+            if passed:
+                coins.append(coin)
 
-            print("\nFIRST RAW API OBJECT\n")
+        print(f"Qualified {len(coins)} coins")
 
-            print(json.dumps(pairs[0], indent=4))
+        if coins:
+
+            print("\nFIRST QUALIFIED COIN\n")
+
+            print(coins[0])
