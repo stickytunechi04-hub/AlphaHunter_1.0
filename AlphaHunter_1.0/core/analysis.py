@@ -24,6 +24,27 @@ def normalize_pair(pair):
 
     boosts = pair.get("boosts", {})
 
+    info = pair.get("info", {})
+
+    websites = info.get("websites", [])
+
+    socials = info.get("socials", [])
+
+    website = ""
+    twitter = ""
+    telegram = ""
+
+    if websites:
+        website = websites[0].get("url", "")
+
+    for social in socials:
+
+        if social.get("type") == "twitter":
+            twitter = social.get("url", "")
+
+        elif social.get("type") == "telegram":
+            telegram = social.get("url", "")
+
     return {
 
         # Identity
@@ -57,6 +78,12 @@ def normalize_pair(pair):
 
         # Dex boosts
         "boosts": boosts.get("active", 0),
+
+        # Narrative Intelligence
+        "website": website,
+        "twitter": twitter,
+        "telegram": telegram,
+        "image": info.get("imageUrl", ""),
 
         # Link
         "url": pair.get("url", "")

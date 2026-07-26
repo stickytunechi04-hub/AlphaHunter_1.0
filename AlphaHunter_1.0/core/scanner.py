@@ -16,6 +16,7 @@ from modules.momentum import MomentumEngine
 from modules.risk import RiskEngine
 from modules.whale import WhaleEngine
 from modules.smart_money import SmartMoneyEngine
+from modules.narrative import NarrativeEngine
 
 
 class Scanner:
@@ -31,11 +32,12 @@ class Scanner:
         print("\nFiltering market...\n")
 
         filter_engine = QualityFilter()
-        hunter = HunterScore()
 
+        hunter = HunterScore()
         momentum = MomentumEngine()
         whale = WhaleEngine()
         smart = SmartMoneyEngine()
+        narrative = NarrativeEngine()
         risk = RiskEngine()
 
         decision = DecisionEngine()
@@ -64,6 +66,8 @@ class Scanner:
 
             coin["smart_money_score"] = smart.score(coin)
 
+            coin["narrative_score"] = narrative.score(coin)
+
             coin["risk_score"] = risk.score(coin)
 
             ########################################
@@ -71,7 +75,7 @@ class Scanner:
             ########################################
 
             coin["wallet_score"] = 0
-            coin["narrative_score"] = 0
+
             coin["conviction_score"] = 0
 
             ########################################
@@ -97,9 +101,9 @@ class Scanner:
 
         print(f"Qualified {len(coins)} coins\n")
 
-        print("=" * 120)
+        print("=" * 140)
         print("TOP OPPORTUNITIES")
-        print("=" * 120)
+        print("=" * 140)
 
         for coin in coins[:10]:
 
@@ -109,6 +113,7 @@ class Scanner:
                 f" Momentum:{coin['momentum_score']:>3}"
                 f" Whale:{coin['whale_score']:>3}"
                 f" Smart:{coin['smart_money_score']:>3}"
+                f" Narrative:{coin['narrative_score']:>3}"
                 f" Risk:{coin['risk_score']:>3}"
                 f" Final:{coin['final_score']:>3}   "
                 f"Price:${coin['price']}"
