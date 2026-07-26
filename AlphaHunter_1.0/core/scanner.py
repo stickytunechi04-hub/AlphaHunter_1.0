@@ -1,7 +1,7 @@
 """
-=========================================
-AlphaHunter Scanner
-=========================================
+==========================================
+ALPHA HUNTER SCANNER
+==========================================
 """
 
 from api.api_manager import fetch_pairs
@@ -11,6 +11,8 @@ from core.filters import QualityFilter
 from core.scoring import HunterScore
 from core.engine import DecisionEngine
 from core.ranking import RankingEngine
+
+from modules.momentum import MomentumEngine
 
 
 class Scanner:
@@ -27,6 +29,7 @@ class Scanner:
 
         filter_engine = QualityFilter()
         hunter = HunterScore()
+        momentum = MomentumEngine()
         decision = DecisionEngine()
         ranking = RankingEngine()
 
@@ -43,9 +46,10 @@ class Scanner:
 
             coin["hunter_score"] = hunter.calculate(coin)
 
-            # Reserved for future engines
+            coin["momentum_score"] = momentum.score(coin)
+
+            # Future Intelligence Engines
             coin["risk_score"] = 0
-            coin["momentum_score"] = 0
             coin["narrative_score"] = 0
             coin["wallet_score"] = 0
             coin["smart_money_score"] = 0
@@ -53,6 +57,17 @@ class Scanner:
             coin["conviction_score"] = 0
 
             coin = decision.evaluate(coin)
+
+            if len(coins) == 0:
+
+                print("\n======================================================")
+                print("FIRST ENRICHED COIN")
+                print("======================================================\n")
+
+                for key, value in coin.items():
+                    print(f"{key:<20}: {value}")
+
+                print()
 
             coins.append(coin)
 
@@ -69,6 +84,7 @@ class Scanner:
             print(
                 f"{coin['symbol']:<12}"
                 f" Hunter:{coin['hunter_score']:>3}"
+                f" Momentum:{coin['momentum_score']:>3}"
                 f" Final:{coin['final_score']:>3}"
                 f" Price:${coin['price']}"
             )
