@@ -13,6 +13,7 @@ class DecisionEngine:
         final = (
             coin["hunter_score"]
             + coin["momentum_score"]
+            + coin["whale_score"]
             - coin["risk_score"]
         )
 
