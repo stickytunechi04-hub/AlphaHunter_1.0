@@ -14,6 +14,7 @@ class DecisionEngine:
             coin["hunter_score"]
             + coin["momentum_score"]
             + coin["whale_score"]
+            + coin["smart_money_score"]
             - coin["risk_score"]
         )
 

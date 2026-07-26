@@ -15,6 +15,7 @@ from core.ranking import RankingEngine
 from modules.momentum import MomentumEngine
 from modules.risk import RiskEngine
 from modules.whale import WhaleEngine
+from modules.smart_money import SmartMoneyEngine
 
 
 class Scanner:
@@ -25,15 +26,17 @@ class Scanner:
 
         pairs = fetch_pairs()
 
-        print(f"Downloaded {len(pairs)} pairs")
+        print(f"Downloaded {len(pairs)} market pairs")
 
         print("\nFiltering market...\n")
 
         filter_engine = QualityFilter()
         hunter = HunterScore()
+
         momentum = MomentumEngine()
-        risk = RiskEngine()
         whale = WhaleEngine()
+        smart = SmartMoneyEngine()
+        risk = RiskEngine()
 
         decision = DecisionEngine()
         ranking = RankingEngine()
@@ -49,16 +52,31 @@ class Scanner:
             if not passed:
                 continue
 
+            ########################################
+            # Intelligence Engines
+            ########################################
+
             coin["hunter_score"] = hunter.calculate(coin)
+
             coin["momentum_score"] = momentum.score(coin)
-            coin["risk_score"] = risk.score(coin)
+
             coin["whale_score"] = whale.score(coin)
 
-            # Future Intelligence Engines
-            coin["narrative_score"] = 0
+            coin["smart_money_score"] = smart.score(coin)
+
+            coin["risk_score"] = risk.score(coin)
+
+            ########################################
+            # Future Engines
+            ########################################
+
             coin["wallet_score"] = 0
-            coin["smart_money_score"] = 0
+            coin["narrative_score"] = 0
             coin["conviction_score"] = 0
+
+            ########################################
+            # Final Decision
+            ########################################
 
             coin = decision.evaluate(coin)
 
@@ -79,9 +97,9 @@ class Scanner:
 
         print(f"Qualified {len(coins)} coins\n")
 
-        print("=" * 98)
+        print("=" * 120)
         print("TOP OPPORTUNITIES")
-        print("=" * 98)
+        print("=" * 120)
 
         for coin in coins[:10]:
 
@@ -90,7 +108,8 @@ class Scanner:
                 f" Hunter:{coin['hunter_score']:>3}"
                 f" Momentum:{coin['momentum_score']:>3}"
                 f" Whale:{coin['whale_score']:>3}"
+                f" Smart:{coin['smart_money_score']:>3}"
                 f" Risk:{coin['risk_score']:>3}"
-                f" Final:{coin['final_score']:>3}"
-                f" Price:${coin['price']}"
+                f" Final:{coin['final_score']:>3}   "
+                f"Price:${coin['price']}"
             )
